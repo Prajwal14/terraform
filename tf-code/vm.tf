@@ -14,8 +14,3 @@ resource "aws_instance" "myinstance" {
     Name = local.vm_name
   }
 }
-
-resource "aws_eip" "myIP" {
-  instance = aws_instance.myinstance.id
-  vpc      = true
-}
