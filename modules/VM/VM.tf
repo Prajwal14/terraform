@@ -59,7 +59,7 @@ resource "aws_instance" "ec2instance" {
 
   ami           = "ami-0851b76e8b1bce90b"
   instance_type =  var.ec2_instance_type
-  availability_zone = var.region
+  availability_zone = var.ec2_zone
   key_name = "VM-Key"
 
   network_interface {
