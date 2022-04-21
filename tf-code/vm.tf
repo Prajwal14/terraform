@@ -1,6 +1,7 @@
 module "vm" {
   source      = "../modules/VM"
 
+  naming    = local.naming
   vpc_id    = module.vpc.vpc_id
   subnet_id = module.vpc.subnet_id
   ec2_zone  = "${var.region}a"

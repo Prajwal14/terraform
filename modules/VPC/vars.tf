@@ -22,3 +22,6 @@ variable "subnet_purpose" {
   description = "Availablity zone of Subnet"
   default = "general"
 }
+
+variable "naming"{
+}

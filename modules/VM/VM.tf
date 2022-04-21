@@ -1,3 +1,6 @@
+locals{
+  naming = var.naming
+}
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_web_traffic"
   description = "Allow Web traffic"

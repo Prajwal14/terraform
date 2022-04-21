@@ -1,3 +1,7 @@
+locals{
+  naming = var.naming
+}
+
 resource "aws_vpc" "vpcaws" {
   cidr_block = var.vpc_cidr
 
