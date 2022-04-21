@@ -1,13 +1,7 @@
 locals {
 
-#VM name
-  vm_name = "${var.project}-vmNew-${var.env}-01"
-
-#VPC name
-  vpc_name = "${var.project}-vpc-${var.env}-01"
-
-#Subnet name
-  subnet_name = "${var.project}-subnet-${var.env}-01"
+#General Naming Structure - org-project-env-resource-count
+  naming = "${var.org}-${var.project}-${var.env}"
 
 #tags
   required_tags = {

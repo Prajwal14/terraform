@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 0.12"
+  
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -8,7 +10,12 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "ap-south-1"
+  default_tags {
+   tags = {
+     Owner       = "Rahul Trivedi"
+    }
+  }
+  region = var.region
   access_key = var.AccessKey
   secret_key = var.SecretKey
 }

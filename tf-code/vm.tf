@@ -1,20 +1,8 @@
-resource "aws_instance" "myinstance" {
+module "vm" {
+  source      = "../modules/VM"
 
-  ami           = "ami-0851b76e8b1bce90b"
-  instance_type = var.ec2_instance_type
-  associate_public_ip_address = true
-  subnet_id              = aws_subnet.mysubnet.id
-
-  user_data = <<-EOF
-    #!/bin/bash
-    sudo apt-get install nginx
-    EOF
-
-  tags = {
-    Name = local.vm_name
-  }
-}
-
-output "instance" {
-  value = aws_instance.myinstance
+  vpc_id    = module.vpc.vpc_id
+  subnet_id = module.vpc.subnet_id
+  ec2_zone  = "${var.region}a"
+  ec2_instance_type = var.ec2_instance_type
 }
