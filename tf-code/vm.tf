@@ -2,7 +2,7 @@ resource "aws_instance" "myinstance" {
 
   ami           = "ami-0851b76e8b1bce90b"
   instance_type = var.ec2_instance_type
-
+  associate_public_ip_address = true
   subnet_id              = aws_subnet.mysubnet.id
 
   user_data = <<-EOF
@@ -13,4 +13,8 @@ resource "aws_instance" "myinstance" {
   tags = {
     Name = local.vm_name
   }
+}
+
+output "instance" {
+  value = aws_instance.myinstance
 }
