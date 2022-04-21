@@ -45,7 +45,7 @@ resource "aws_security_group" "allow_traffic" {
 resource "aws_network_interface" "nic" {
   subnet_id       = var.subnet_id
   private_ips     = ["10.0.0.15"]
-  security_groups = aws_security_group.allow_traffic.id
+  security_groups = [aws_security_group.allow_traffic.id]
 
 }
 
