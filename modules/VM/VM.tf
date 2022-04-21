@@ -57,7 +57,7 @@ resource "aws_eip" "eip" {
 
 resource "aws_instance" "ec2instance" {
 
-  ami           = "ami-0851b76e8b1bce90b"
+  ami           = "ami-04505e74c0741db8d"
   instance_type =  var.ec2_instance_type
   availability_zone = var.ec2_zone
   key_name = "VM-Key"
