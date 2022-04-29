@@ -30,6 +30,12 @@ variable "region" {
   description = "Region of the Resource"
 }
 
+variable "ec2_ami" {
+  type        = string
+  default     = "ami-04505e74c0741db8d"
+  description = "Virtual Machine Image"
+}
+
 variable "ec2_instance_type" {
   type        = string
   default = "t2.micro"

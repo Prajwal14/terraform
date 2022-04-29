@@ -1,10 +1,7 @@
-locals{
-  naming = var.naming
-}
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_web_traffic"
   description = "Allow Web traffic"
-  vpc_id      = var.vpc_id
+  vpc_id      = var.ec2_vpc_id
 
   ingress {
     description      = "HTTP"
@@ -37,43 +34,56 @@ resource "aws_security_group" "allow_traffic" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "${local.naming}-sg"
-  }
+  tags = merge(
+    { "Name" = "${local.naming}-sg" },
+    var.tags,
+  )
 }
 
 resource "aws_network_interface" "nic" {
-  subnet_id       = var.subnet_id
-  private_ips     = ["10.0.0.15"]
+  count = length(var.eni_ips)
+  
+  subnet_id       = var.ec2_subnet_id
+  private_ips     = [var.eni_ips[count.index]]
   security_groups = [aws_security_group.allow_traffic.id]
 
+  tags = merge(
+    { "Name" = "${local.naming}-${var.vm_purpose[count.index]}-eni" },
+    var.tags,
+  )
 }
 
 resource "aws_eip" "eip" {
+  count = length(var.eni_ips)
+
   vpc      = true
-  network_interface = aws_network_interface.nic.id
-  associate_with_private_ip = "10.0.0.15"
+  network_interface = element(aws_network_interface.nic[*].id, count.index)
+  associate_with_private_ip = var.eni_ips[count.index]
+
+  tags = merge(
+    { "Name" = "${local.naming}-${var.vm_purpose[count.index]}-eip" },
+    var.tags,
+  )
 }
 
 resource "aws_instance" "ec2instance" {
+  count = length(var.vm_purpose)
 
-  ami           = "ami-04505e74c0741db8d"
-  instance_type =  var.ec2_instance_type
-  availability_zone = var.ec2_zone
-  key_name = "VM-Key"
+  ami                         = var.ec2_ami
+  instance_type               = var.ec2_instance_type
+  availability_zone           = var.ec2_zone
+  key_name                    = "${var.vm_purpose[count.index]}-Key"
+  associate_public_ip_address = true
 
   network_interface {
     device_index = 0
-    network_interface_id = aws_network_interface.nic.id
+    network_interface_id = element(aws_network_interface.nic[*].id, count.index)
   }
 
-  user_data = <<-EOF
-    #!/bin/bash
-    sudo apt update
-    sudo apt install nginx -y
-    EOF
+  user_data = local.user_data
 
-  tags = {
-    Name = "${local.naming}-vm"
-  }
+  tags = merge(
+    { "Name" = "${local.naming}-${var.vm_purpose[count.index]}-vm" },
+    var.tags,
+  )
 }
