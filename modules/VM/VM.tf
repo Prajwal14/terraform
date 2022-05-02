@@ -73,7 +73,7 @@ resource "aws_instance" "ec2instance" {
   instance_type               = var.ec2_instance_type
   availability_zone           = var.ec2_zone
   key_name                    = "${var.vm_purpose[count.index]}-Key"
-#  associate_public_ip_address = true
+  # associate_public_ip_address = true
 
   network_interface {
     device_index = 0
