@@ -4,7 +4,7 @@
 
 resource "aws_eks_cluster" "eks" {
   name     = "${var.project_naming}-cluster"
-  version  = var.version
+  version  = var.k8s_version
   role_arn = aws_iam_role.eksRole.arn
 
   vpc_config {
