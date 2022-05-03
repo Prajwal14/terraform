@@ -36,7 +36,16 @@ resource "aws_vpc_peering_connection" "peering" {
   peer_vpc_id   = module.edge_vpc.vpc_id
   vpc_id        = module.eks_vpc.vpc_id
   auto_accept   = true
-  
+
+  tags = {
+    Name = "peering-edgeService-eksApplication"
+    Environment = "dev"
+  }
+}
+
+resource "aws_vpc_peering_connection_options" "peering_option" {
+  vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
+
   accepter {
     allow_remote_vpc_dns_resolution = true
   }
@@ -45,10 +54,7 @@ resource "aws_vpc_peering_connection" "peering" {
     allow_remote_vpc_dns_resolution = true
   }
 
-  tags = {
-    Name = "peering-edgeService-eksApplication"
-    Environment = "dev"
-  }
+  depends_on = [aws_vpc_peering_connection.peering]
 }
 
 resource "aws_route" "rt_edgeToEks1" {
