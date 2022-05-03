@@ -19,5 +19,3 @@ provider "aws" {
   access_key = var.AccessKey
   secret_key = var.SecretKey
 }
-
-#Comment

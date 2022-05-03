@@ -6,19 +6,19 @@ resource "aws_iam_role" "eksRole" {
   name = "eksClusterRole"
 
   assume_role_policy = <<POLICY
+{
+"Version": "2012-10-17",
+"Statement": [
     {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Effect": "Allow",
-        "Principal": {
-            "Service": "eks.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-        }
-    ]
+    "Effect": "Allow",
+    "Principal": {
+        "Service": "eks.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole"
     }
-    POLICY
+]
+}
+POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
