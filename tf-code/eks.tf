@@ -12,3 +12,5 @@ module "eksCluster" {
   node_group_min_size       = 2
   node_group_instance_types = ["t3.large"]
 }
+
+  #Comment
