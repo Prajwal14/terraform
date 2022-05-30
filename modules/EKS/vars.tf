@@ -87,6 +87,6 @@ variable "project_naming" {
 }
 
 locals {
-  node_tag       = "${merge(map("k8s.io/cluster-autoscaler/${aws_eks_cluster.eks.name}", "owned"))}"
-  autoscaler_tag = "${merge(map("k8s.io/cluster-autoscaler/enabled", "true"))}"
+  node_tag       = "${merge(tomap({"k8s.io/cluster-autoscaler/${aws_eks_cluster.eks.name}" = "owned"}))}"
+  autoscaler_tag = "${merge(tomap({"k8s.io/cluster-autoscaler/enabled" = "true"}))}"
 }

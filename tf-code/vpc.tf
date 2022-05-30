@@ -34,8 +34,8 @@ module "eks_vpc" {
   private_subnets = ["10.0.0.0/24", "10.0.1.0/24"]
   subnet_zones    = ["${var.region}a", "${var.region}b"]
 
-  public_subnets_tags  = "${merge(map("kubernetes.io/role/elb", "1"))}"           #{ kubernetes.io/role/elb : 1 }
-  private_subnets_tags = "${merge(map("kubernetes.io/role/internal-elb", "1"))}"  #{ kubernetes.io/role/internal-elb : 1 }
+  public_subnets_tags  = "${merge(tomap({"kubernetes.io/role/elb" = 1}))}"           #{ kubernetes.io/role/elb : 1 }
+  private_subnets_tags = "${merge(tomap({"kubernetes.io/role/internal-elb" = 1}))}"  #{ kubernetes.io/role/internal-elb : 1 }
 
   purpose = "eksApplication"
 
@@ -75,14 +75,14 @@ resource "aws_vpc_peering_connection_options" "peering_option" {
 }
 
 resource "aws_route" "rt_edgeToEks1" {
-  route_table_id            = module.edge_vpc.public_rtb_id
+  route_table_id            = module.edge_vpc.public_rtb_id.0
   destination_cidr_block    = "10.0.0.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   depends_on                = [aws_vpc_peering_connection.peering]
 }
 
 resource "aws_route" "rt_edgeToEks2" {
-  route_table_id            = module.edge_vpc.public_rtb_id
+  route_table_id            = module.edge_vpc.public_rtb_id.0
   destination_cidr_block    = "10.0.1.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   depends_on                = [aws_vpc_peering_connection.peering]

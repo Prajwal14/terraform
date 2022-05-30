@@ -28,7 +28,7 @@ data "tls_certificate" "cluster" {
 resource "aws_iam_openid_connect_provider" "cluster" {
   client_id_list = ["sts.amazonaws.com"]
   thumbprint_list = [data.tls_certificate.cluster.certificates.0.sha1_fingerprint]
-  url = aws_eks_cluster.cluster.identity.0.oidc.0.issuer
+  url = aws_eks_cluster.eks.identity.0.oidc.0.issuer
 }
 
 
@@ -40,7 +40,7 @@ resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "${var.project_naming}-application-nodeGroup"
   node_role_arn   = aws_iam_role.ngRole.arn
-  subnet_ids      = var.subnet_ids
+  subnet_ids      = var.private_subnet_ids
 
   scaling_config {
     desired_size = var.node_group_desired_size
