@@ -7,7 +7,7 @@ module "edge_vm" {
 
   project_naming = local.naming
   ec2_vpc_id     = module.edge_vpc.vpc_id
-  ec2_subnet_id  = module.edge_vpc.public_subnet_id
+  ec2_subnet_id  = module.edge_vpc.public_subnet_id.0
 
   ec2_zone          = "${var.region}a"
   ec2_ami           = var.ec2_ami

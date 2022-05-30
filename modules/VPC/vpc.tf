@@ -96,7 +96,7 @@ resource "aws_route_table" "private_rtb" {
 # Public and Private Subnets
 ##################################################################################
 resource "aws_subnet" "public_subnet" {
-  count = length(var.private_subnets)
+  count = length(var.public_subnets)
 
   vpc_id            = aws_vpc.vpcaws.id
   cidr_block        = var.public_subnets[count.index]
