@@ -4,7 +4,7 @@ variable "project_naming" {
   default     = ""
 }
 
-variable "ec2_vpc_id" {  
+variable "ec2_vpc_id" {
   description = "Id of VPC for EC2"
   type        = string
   default     = ""
@@ -16,13 +16,13 @@ variable "ec2_subnet_id" {
   default     = ""
 }
 
-variable "ec2_zone"{
+variable "ec2_zone" {
   description = "Availablity zone for EC2"
   type        = string
   default     = ""
 }
 
-variable "ec2_ami"{
+variable "ec2_ami" {
   description = "Image of EC2 Instance"
   type        = string
   default     = ""
@@ -34,19 +34,19 @@ variable "ec2_instance_type" {
   default     = ""
 }
 
-variable "vm_purpose"{
+variable "vm_purpose" {
   description = "Purpose of VM"
   type        = list(string)
   default     = []
 }
 
-variable "service"{
+variable "service" {
   description = "Service name under which VM are launched"
   type        = string
   default     = ""
 }
 
-variable "eni_ips"{
+variable "eni_ips" {
   description = "Private IP of eni"
   type        = list(string)
   default     = []

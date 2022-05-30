@@ -1,49 +1,72 @@
-resource "aws_s3_bucket" "client" {
-  bucket = "${local.naming}-react-client-fe"
+# ###########################################################################
+# ## S3 bucket for Client
+# ###########################################################################
 
-  tags = {
-    Environment = "Dev"
-  }
-}
+# resource "aws_s3_bucket" "client" {
+#   bucket = "${local.naming}-react-client-fe"
 
-resource "aws_s3_bucket_acl" "client_acl" {
-  bucket = aws_s3_bucket.client.bucket
-  acl    = "public-read"
-}
+#   tags = {
+#     Environment = "Dev"
+#   }
+# }
 
-resource "aws_s3_bucket_website_configuration" "client" {
-  bucket = aws_s3_bucket.client.bucket
+# resource "aws_s3_bucket_public_access_block" "block_client_public_access" {
+#   bucket = aws_s3_bucket.client.id
 
-  index_document {
-    suffix = "index.html"
-  }
+#   block_public_acls   = true
+#   block_public_policy = true
+# }
 
-  error_document {
-    key = "error.html"
-  }
-}
+# # resource "aws_s3_bucket_acl" "client_acl" {
+# #   bucket = aws_s3_bucket.client.bucket
+# #   acl    = "public-read"
+# # }
 
-resource "aws_s3_bucket" "admin" {
-  bucket = "${local.naming}-react-admin-fe"
+# # resource "aws_s3_bucket_website_configuration" "client" {
+# #   bucket = aws_s3_bucket.client.bucket
 
-  tags = {
-    Environment = "Dev"
-  }
-}
+# #   index_document {
+# #     suffix = "index.html"
+# #   }
 
-resource "aws_s3_bucket_acl" "admin_acl" {
-  bucket = aws_s3_bucket.admin.bucket
-  acl    = "public-read"
-}
+# #   error_document {
+# #     key = "error.html"
+# #   }
+# # }
 
-resource "aws_s3_bucket_website_configuration" "admin" {
-  bucket = aws_s3_bucket.admin.bucket
 
-  index_document {
-    suffix = "index.html"
-  }
+# ###########################################################################
+# ## S3 bucket for Admin
+# ###########################################################################
 
-  error_document {
-    key = "error.html"
-  }
-}
+# resource "aws_s3_bucket" "admin" {
+#   bucket = "${local.naming}-react-admin-fe"
+
+#   tags = {
+#     Environment = "Dev"
+#   }
+# }
+
+# resource "aws_s3_bucket_public_access_block" "block_admin_public_access" {
+#   bucket = aws_s3_bucket.admin.id
+
+#   block_public_acls   = true
+#   block_public_policy = true
+# }
+
+# # resource "aws_s3_bucket_acl" "admin_acl" {
+# #   bucket = aws_s3_bucket.admin.bucket
+# #   acl    = "public-read"
+# # }
+
+# # resource "aws_s3_bucket_website_configuration" "admin" {
+# #   bucket = aws_s3_bucket.admin.bucket
+
+# #   index_document {
+# #     suffix = "index.html"
+# #   }
+
+# #   error_document {
+# #     key = "error.html"
+# #   }
+# # }

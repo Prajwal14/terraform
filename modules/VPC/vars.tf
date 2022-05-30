@@ -34,13 +34,25 @@ variable "private_subnets" {
   default     = []
 }
 
+variable "public_subnets_tags" {
+  description = "A map of tags to add to all public subnets"
+  type        = map(string)
+  default     = {}
+}
+
+variable "private_subnets_tags" {
+  description = "A map of tags to add to all private subnets"
+  type        = map(string)
+  default     = {}
+}
+
 variable "subnet_zones" {
   description = "Availablity zones for Subnets"
   type        = list(string)
   default     = []
 }
 
-variable "project_naming"{
+variable "project_naming" {
   description = "Project Name"
   type        = string
   default     = ""

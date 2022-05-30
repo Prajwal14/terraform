@@ -4,7 +4,12 @@ variable "k8s_version" {
   default     = "1.21"
 }
 
-variable "subnet_ids" {
+variable "private_subnet_ids" {
+  description = "CIDRs of Subnets for EKS"
+  type        = list(string)
+}
+
+variable "public_subnet_ids" {
   description = "CIDRs of Subnets for EKS"
   type        = list(string)
 }
@@ -15,7 +20,7 @@ variable "endpoint_private_access" {
   default     = true
 }
 
-variable "endpoint_public_access"{
+variable "endpoint_public_access" {
   description = "Should be true to enable public access of K8s API server"
   type        = bool
   default     = true
@@ -75,8 +80,13 @@ variable "node_group_labels" {
   default     = {}
 }
 
-variable "project_naming"{
+variable "project_naming" {
   description = "Project Name"
   type        = string
   default     = ""
+}
+
+locals {
+  node_tag       = "${merge(map("k8s.io/cluster-autoscaler/${aws_eks_cluster.eks.name}", "owned"))}"
+  autoscaler_tag = "${merge(map("k8s.io/cluster-autoscaler/enabled", "true"))}"
 }
