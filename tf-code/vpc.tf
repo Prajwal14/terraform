@@ -78,19 +78,19 @@ resource "aws_route" "rt_edgeToEks1" {
   route_table_id            = module.edge_vpc.public_rtb_id.0
   destination_cidr_block    = "10.0.0.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
-  depends_on                = [aws_vpc_peering_connection.peering]
+#   depends_on                = [aws_vpc_peering_connection.peering]
 }
 
 resource "aws_route" "rt_edgeToEks2" {
   route_table_id            = module.edge_vpc.public_rtb_id.0
   destination_cidr_block    = "10.0.1.0/24"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
-  depends_on                = [aws_vpc_peering_connection.peering]
+#   depends_on                = [aws_vpc_peering_connection.peering]
 }
 
 resource "aws_route" "rt_eksToEdge" {
   route_table_id            = module.eks_vpc.private_rtb_id.0
   destination_cidr_block    = "10.1.0.0/26"
   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
-  depends_on                = [aws_vpc_peering_connection.peering]
+#   depends_on                = [aws_vpc_peering_connection.peering]
 }
