@@ -60,6 +60,10 @@ resource "aws_eks_node_group" "example" {
   update_config {
     max_unavailable = 1
   }
+  
+  lifecycle {
+  ignore_changes = [scaling_config.0.desired_size]
+  }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   depends_on = [
