@@ -65,7 +65,7 @@ variable "node_group_capacity_type" {
 variable "node_group_disk_size" {
   description = "Disk Size of Nodes"
   type        = number
-  default     = 20
+  default     = 5
 }
 
 variable "node_group_instance_types" {
