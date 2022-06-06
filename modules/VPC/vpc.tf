@@ -72,7 +72,7 @@ resource "aws_route_table" "public_rtb" {
 
 resource "aws_route" "igwroute" {
   route_table_id = element(aws_route_table.public_rtb[*].id, 0)
-  cidr_block = "0.0.0.0/0"
+  destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.igw.id
 }
 
@@ -89,7 +89,7 @@ resource "aws_route_table" "private_rtb" {
 
 resource "aws_route" "natroute" {
   route_table_id = element(aws_route_table.private_rtb[*].id, 0)
-  cidr_block = "0.0.0.0/0"
+  destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = element(aws_nat_gateway.ngw[*].id, 0)
 }
 
