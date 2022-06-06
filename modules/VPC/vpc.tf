@@ -88,6 +88,8 @@ resource "aws_route_table" "private_rtb" {
 }
 
 resource "aws_route" "natroute" {
+  count = length(var.private_subnets) > 0 ? 1 : 0
+  
   route_table_id = element(aws_route_table.private_rtb[*].id, 0)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = element(aws_nat_gateway.ngw[*].id, 0)
